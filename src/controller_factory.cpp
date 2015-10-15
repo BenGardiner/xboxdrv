@@ -25,6 +25,7 @@
 #include "playstation3_usb_controller.hpp"
 #include "saitek_p2500_controller.hpp"
 #include "saitek_p3600_controller.hpp"
+#include "xboxone_controller.hpp"
 #include "xbox360_controller.hpp"
 #include "xbox360_wireless_controller.hpp"
 #include "xbox_controller.hpp"
@@ -45,6 +46,9 @@ ControllerFactory::create(const XPadDevice& dev_type, libusb_device* dev, const 
     case GAMEPAD_XBOX:
     case GAMEPAD_XBOX_MAT:
       return ControllerPtr(new XboxController(dev, opts.detach_kernel_driver));
+
+    case GAMEPAD_XBOXONE:
+      return ControllerPtr(new XboxOneController(dev, opts.detach_kernel_driver));
 
     case GAMEPAD_XBOX360:
     case GAMEPAD_XBOX360_GUITAR:
@@ -105,6 +109,10 @@ ControllerFactory::create_multiple(const XPadDevice& dev_type, libusb_device* de
     case GAMEPAD_XBOX:
     case GAMEPAD_XBOX_MAT:
       lst.push_back(ControllerPtr(new XboxController(dev, opts.detach_kernel_driver)));
+      break;
+
+    case GAMEPAD_XBOXONE:
+      lst.push_back(ControllerPtr(new XboxOneController(dev, opts.detach_kernel_driver)));
       break;
 
     case GAMEPAD_XBOX360:

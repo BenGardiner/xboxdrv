@@ -40,6 +40,9 @@ std::string gamepadtype_to_string(const GamepadType& type)
 {
   switch (type)
   {
+    case GAMEPAD_XBOXONE:
+      return "xboxone";
+
     case GAMEPAD_XBOX360:
       return "xbox360";
 
@@ -86,6 +89,7 @@ std::string gamepadtype_to_macro_string(const GamepadType& type)
 {
   switch (type)
   {
+    case GAMEPAD_XBOXONE: return "GAMEPAD_XBOXONE";
     case GAMEPAD_XBOX360: return "GAMEPAD_XBOX360";
     case GAMEPAD_XBOX360_WIRELESS: return "GAMEPAD_XBOX360_WIRELESS";
     case GAMEPAD_XBOX360_PLAY_N_CHARGE: return "GAMEPAD_XBOX360_PLAY_N_CHARGE";
@@ -107,6 +111,9 @@ std::ostream& operator<<(std::ostream& out, const GamepadType& type)
 {
   switch (type)
   {
+    case GAMEPAD_XBOXONE:
+      return out << "XboxOne";
+
     case GAMEPAD_XBOX360:
       return out << "Xbox360";
 

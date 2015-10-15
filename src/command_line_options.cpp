@@ -595,6 +595,10 @@ CommandLineParser::parse_args(int argc, char** argv, Options* options)
         {
           opts.gamepad_type = GAMEPAD_XBOX_MAT;
         }
+        else if (opt.argument == "xboxone")
+        {
+          opts.gamepad_type = GAMEPAD_XBOXONE;
+        }
         else if (opt.argument == "xbox360")
         {
           opts.gamepad_type = GAMEPAD_XBOX360;
