@@ -21,6 +21,7 @@
 #include <sstream>
 #include <stdexcept>
 #include <string.h>
+#include <boost/lambda/lambda.hpp>
 
 #include "usb_helper.hpp"
 #include "raise_exception.hpp"
@@ -32,8 +33,8 @@ XboxController::XboxController(libusb_device* dev, bool try_detach) :
   m_endpoint_out(2)
 {
   // find endpoints
-  m_endpoint_in  = usb_find_ep(LIBUSB_ENDPOINT_IN,  88, 66, 0);
-  m_endpoint_out = usb_find_ep(LIBUSB_ENDPOINT_OUT, 88, 66, 0);
+  m_endpoint_in  = usb_find_ep(LIBUSB_ENDPOINT_IN,  88, 66, 0, boost::lambda::constant(true));
+  m_endpoint_out = usb_find_ep(LIBUSB_ENDPOINT_OUT, 88, 66, 0, boost::lambda::constant(true));
 
   usb_claim_interface(0, try_detach);
   usb_submit_read(m_endpoint_in, 32);

@@ -18,6 +18,8 @@
 
 #include "xbox360_controller.hpp"
 
+#include <boost/lambda/lambda.hpp>
+
 #include "chatpad.hpp"
 #include "headset.hpp"
 #include "helper.hpp"
@@ -43,8 +45,8 @@ Xbox360Controller::Xbox360Controller(libusb_device* dev,
   m_rumble_right(0)
 {
   // find endpoints
-  endpoint_in  = usb_find_ep(LIBUSB_ENDPOINT_IN,  LIBUSB_CLASS_VENDOR_SPEC, 93, 1);
-  endpoint_out = usb_find_ep(LIBUSB_ENDPOINT_OUT, LIBUSB_CLASS_VENDOR_SPEC, 93, 1);
+  endpoint_in  = usb_find_ep(LIBUSB_ENDPOINT_IN,  LIBUSB_CLASS_VENDOR_SPEC, 93, 1, boost::lambda::constant(true));
+  endpoint_out = usb_find_ep(LIBUSB_ENDPOINT_OUT, LIBUSB_CLASS_VENDOR_SPEC, 93, 1, boost::lambda::constant(true));
 
   log_debug("EP(IN):  " << endpoint_in);
   log_debug("EP(OUT): " << endpoint_out);

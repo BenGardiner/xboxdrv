@@ -23,6 +23,7 @@
 #include <string>
 #include <memory>
 #include <set>
+#include <boost/function.hpp>
 
 #include "controller.hpp"
 
@@ -49,7 +50,7 @@ public:
 
   virtual bool parse(uint8_t* data, int len, XboxGenericMsg* msg_out) =0;
 
-  int  usb_find_ep(int direction, uint8_t if_class, uint8_t if_subclass, uint8_t if_protocol);
+  int  usb_find_ep(int direction, uint8_t if_class, uint8_t if_subclass, uint8_t if_protocol, boost::function<bool(int)> if_index_pred);
 
   void usb_claim_interface(int ifnum, bool try_detach);
 

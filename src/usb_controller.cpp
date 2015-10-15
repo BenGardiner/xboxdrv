@@ -282,7 +282,7 @@ USBController::usb_claim_interface(int ifnum, bool try_detach)
 }
 
 int
-USBController::usb_find_ep(int direction, uint8_t if_class, uint8_t if_subclass, uint8_t if_protocol)
+USBController::usb_find_ep(int direction, uint8_t if_class, uint8_t if_subclass, uint8_t if_protocol, boost::function<bool(int)> if_index_pred)
 {
   libusb_config_descriptor* config;
   int ret = libusb_get_config_descriptor(m_dev, 0 /* config_index */, &config);
@@ -304,6 +304,8 @@ USBController::usb_find_ep(int direction, uint8_t if_class, uint8_t if_subclass,
           altsetting != interface->altsetting + interface->num_altsetting;
           ++altsetting)
       {
+        if (!if_index_pred(static_cast<int>(altsetting->bInterfaceNumber)))
+          continue;
         log_debug("Interface: " << static_cast<int>(altsetting->bInterfaceNumber));
 
         for(const libusb_endpoint_descriptor* endpoint = altsetting->endpoint;
